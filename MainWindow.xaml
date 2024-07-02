@@ -1,0 +1,52 @@
+﻿<Window x:Class="DummyCtApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DummyCtApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize">
+    <Window.Resources>
+        <!--Define some image resources, for use as the image element source.--> 
+        <BitmapImage x:Key="masterImage" UriSource="/images/1.jpg" />
+        <!--<CroppedBitmap x:Key="croppedImage" />-->
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Name="leftColmn" Width="208"></ColumnDefinition>
+            <ColumnDefinition Name="middleColmn"></ColumnDefinition>
+            <ColumnDefinition Name="rightColmn"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Border BorderBrush="Red" BorderThickness="1" Grid.Column="0">
+            
+        </Border>
+        <Border BorderBrush="Red" BorderThickness="1" Grid.Column="1">
+            
+        </Border>
+        <Button Content="Create PlanBox" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" Height="20" Click="Create_PlanBox"/>
+        <Button Grid.Column="1" Content="Manual Scan" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="20" Click="Manual_Scan"/>
+        <Canvas Name="canvas1" Grid.Column="0">
+            <Image Name="mainViewPortImg" Grid.Column="0" Source="{StaticResource masterImage}" 
+                   Visibility="Visible" 
+                   Stretch="Fill" 
+                   Width="{Binding Source.PixelWidth,RelativeSource={RelativeSource Self}}"
+                   Height="{Binding Source.PixelHeight,RelativeSource={RelativeSource Self}}"/>
+        </Canvas>
+        <GroupBox Name="imageBox" Header="Recived Imgages" Grid.Column="2" Margin="5,5,5,5">
+            <ListView x:Name="_imagelistView">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Image" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </GroupBox>
+    </Grid>
+</Window>
